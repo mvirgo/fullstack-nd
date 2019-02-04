@@ -27,10 +27,11 @@ def top_three_articles(c):
     Query and response to the most popular three articles of all time.
     Input: Database cursor
     '''
-    query = ("SELECT path, count(*) as read_count "
-             "FROM log "
-             "WHERE path LIKE '%article%' "
-             "GROUP BY path "
+    query = ("SELECT a.title, count(l.*) as read_count "
+             "FROM log l "
+             "JOIN articles a "
+             "ON l.path LIKE CONCAT('%', a.slug, '%') "
+             "GROUP BY a.title "
              "ORDER BY read_count DESC "
              "LIMIT 3;")
     results = execute_query(c, query)
