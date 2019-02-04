@@ -34,9 +34,12 @@ def top_three_articles(c):
              "GROUP BY a.title "
              "ORDER BY read_count DESC "
              "LIMIT 3;")
+    print("Executing query for top three all-time articles...\n")
     results = execute_query(c, query)
-    print("The three most popular articles of all time are:\n")
-    print(results)
+    print("The three most popular articles of all time are:")
+    for i in range(len(results)):
+        print(results[i][0], '--', results[i][1], 'views')
+    print('\n')
 
 
 def popular_authors(c):
@@ -52,9 +55,12 @@ def popular_authors(c):
              "ON l.path LIKE CONCAT('%', ar.slug, '%') "
              "GROUP BY au.name "
              "ORDER BY read_count DESC;")
+    print("Executing query for most popular authors...\n")
     results = execute_query(c, query)
-    print("The most popular authors of all time are:\n")
-    print(results)
+    print("The most popular authors of all time are:")
+    for i in range(len(results)):
+        print(results[i][0], '--', results[i][1], 'views')
+    print('\n')
 
 
 def high_error_days(c):
@@ -63,22 +69,25 @@ def high_error_days(c):
     Input: Database cursor
     '''
     query = ("WITH failure AS (SELECT time::date as day, "
-                              "COUNT(status) AS fails "
-                              "FROM log "
-                              "WHERE status = '404 NOT FOUND' "
-                              "GROUP BY day), "
-                  "request AS (SELECT time::date as day, "
-                              "COUNT(status) AS requests "
-                              "FROM log "
-                              "GROUP BY day) "
+             "COUNT(status) AS fails "
+             "FROM log "
+             "WHERE status = '404 NOT FOUND' "
+             "GROUP BY day), "
+             "request AS (SELECT time::date as day, "
+             "COUNT(status) AS requests "
+             "FROM log "
+             "GROUP BY day) "
              "SELECT f.day, f.fails / r.requests::float AS fail_rate "
              "FROM failure f "
              "JOIN request r "
              "ON f.day = r.day "
              "WHERE f.fails / r.requests::float > 0.01; ")
+    print("Executing query for days with >1% failures on requests...\n")
     results = execute_query(c, query)
-    print("Days on which more than 1% of requests returned errors are:\n")
-    print(results)
+    print("Days on which more than 1% of requests returned errors are:")
+    for i in range(len(results)):
+        print(results[i][0], '--', '%.2f%%' % results[i][1], 'errors')
+    print('\n')
 
 
 def main():
