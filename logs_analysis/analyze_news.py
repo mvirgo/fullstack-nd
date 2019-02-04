@@ -43,8 +43,14 @@ def popular_authors(c):
     Query and response to the most popular authors of all time.
     Input: Database cursor
     '''
-    query = ("SELECT * "
-             "FROM authors ")
+    query = ("SELECT au.name, COUNT(l.path) as read_count "
+             "FROM authors au "
+             "JOIN articles ar "
+             "ON au.id = ar.author "
+             "JOIN log l "
+             "ON l.path LIKE CONCAT('%', ar.slug, '%') "
+             "GROUP BY au.name "
+             "ORDER BY read_count DESC;")
     results = execute_query(c, query)
     print("The most popular authors of all time are:\n")
     print(results)
