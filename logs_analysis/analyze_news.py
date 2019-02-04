@@ -27,8 +27,12 @@ def top_three_articles(c):
     Query and response to the most popular three articles of all time.
     Input: Database cursor
     '''
-    query = ("SELECT * "
-             "FROM authors ")
+    query = ("SELECT path, count(*) as read_count "
+             "FROM log "
+             "WHERE path LIKE '%article%' "
+             "GROUP BY path "
+             "ORDER BY read_count DESC "
+             "LIMIT 3;")
     results = execute_query(c, query)
     print("The three most popular articles of all time are:\n")
     print(results)
