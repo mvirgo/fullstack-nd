@@ -62,8 +62,20 @@ def high_error_days(c):
     Query and response to the days with over 1% of requests returning errors.
     Input: Database cursor
     '''
-    query = ("SELECT * "
-             "FROM authors ")
+    query = ("WITH failure AS (SELECT time::date as day, "
+                              "COUNT(status) AS fails "
+                              "FROM log "
+                              "WHERE status = '404 NOT FOUND' "
+                              "GROUP BY day), "
+                  "request AS (SELECT time::date as day, "
+                              "COUNT(status) AS requests "
+                              "FROM log "
+                              "GROUP BY day) "
+             "SELECT f.day, f.fails / r.requests::float AS fail_rate "
+             "FROM failure f "
+             "JOIN request r "
+             "ON f.day = r.day "
+             "WHERE f.fails / r.requests::float > 0.01; ")
     results = execute_query(c, query)
     print("Days on which more than 1% of requests returned errors are:\n")
     print(results)
