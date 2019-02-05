@@ -29,3 +29,23 @@ with some additional formatting for ease of reading. The database is closed
 after the last query is run and printed to the terminal.
 
 You can see an example of the output in `output.txt`.
+
+### Requirements
+Install the following:
+Python 3: [download here](https://www.python.org/downloads/)
+Virtual Box: [download here](https://www.virtualbox.org/wiki/Download_Old_Builds_5_1)
+Vagrant: [download here](https://www.vagrantup.com/downloads.html)
+
+Once you have the above, download the [Udacity Virtual Machine](https://s3.amazonaws.com/video.udacity-data.com/topher/2018/April/5acfbfa3_fsnd-virtual-machine/fsnd-virtual-machine.zip) for the project.
+
+Next, `cd` into where the VM was downloaded, and then cd into the `vagrant` folder within it.
+
+You'll then run `vagrant up`, which may take awhile to install everything else necessary.
+Once it has loaded, run `vagrant ssh` to enter the VM.
+
+Once in the VM, `cd /vagrant` to enter the shared directory with your own computer.
+If you already downloaded the `.sql` file further above,
+run `psql -d news -f newsdata.sql` to create the database. If you entered the database,
+you can exit it with Ctrl+D.
+
+You can then run `python3 analyze_news.py` to run the script.
