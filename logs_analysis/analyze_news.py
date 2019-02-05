@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 '''
 Connects to a database made from newsdata.sql, and returns:
@@ -30,7 +30,7 @@ def top_three_articles(c):
     query = ("SELECT a.title, count(l.*) as read_count "
              "FROM log l "
              "JOIN articles a "
-             "ON l.path LIKE CONCAT('%', a.slug, '%') "
+             "ON l.path = CONCAT('/article/', a.slug) "
              "GROUP BY a.title "
              "ORDER BY read_count DESC "
              "LIMIT 3;")
@@ -52,7 +52,7 @@ def popular_authors(c):
              "JOIN articles ar "
              "ON au.id = ar.author "
              "JOIN log l "
-             "ON l.path LIKE CONCAT('%', ar.slug, '%') "
+             "ON l.path = CONCAT('/article/', ar.slug) "
              "GROUP BY au.name "
              "ORDER BY read_count DESC;")
     print("Executing query for most popular authors...\n")
@@ -69,14 +69,14 @@ def high_error_days(c):
     Input: Database cursor
     '''
     query = ("WITH failure AS (SELECT time::date as day, "
-             "COUNT(status) AS fails "
-             "FROM log "
-             "WHERE status = '404 NOT FOUND' "
-             "GROUP BY day), "
-             "request AS (SELECT time::date as day, "
-             "COUNT(status) AS requests "
-             "FROM log "
-             "GROUP BY day) "
+                              "COUNT(status) AS fails "
+                              "FROM log "
+                              "WHERE status = '404 NOT FOUND' "
+                              "GROUP BY day), "
+                  "request AS (SELECT time::date as day, "
+                              "COUNT(status) AS requests "
+                              "FROM log "
+                              "GROUP BY day) "
              "SELECT f.day, f.fails / r.requests::float AS fail_rate "
              "FROM failure f "
              "JOIN request r "
@@ -92,7 +92,10 @@ def high_error_days(c):
 
 def main():
     # Connect to database
-    db = psycopg2.connect("dbname=news")
+    try:
+        db = psycopg2.connect("dbname=news")
+    except psycopg2.Error:
+        print("Unable to connect to the database.")
     # Grab cursor
     c = db.cursor()
     # Run each query and print results
