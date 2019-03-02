@@ -86,7 +86,7 @@ def high_error_days(c):
     results = execute_query(c, query)
     print("Days on which more than 1% of requests returned errors are:")
     for i in range(len(results)):
-        print(results[i][0], '--', '%.2f%%' % results[i][1], 'errors')
+        print(results[i][0], '--', '%.2f%%' % (results[i][1] * 100), 'errors')
     print('\n')
 
 
