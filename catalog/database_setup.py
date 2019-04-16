@@ -15,6 +15,15 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
+    # Function to be able to send JSON objects in a serializable format
+    @property
+    def serialize(self):
+       
+       return {
+           'id'   : self.id,
+           'name' : self.name,
+       }
+
 
 class CatalogItem(Base):
     __tablename__ = 'catalog_item'
@@ -30,10 +39,10 @@ class CatalogItem(Base):
     def serialize(self):
        
        return {
+           'id'          : self.id,
            'name'        : self.name,
            'description' : self.description,
-           'id'          : self.id,
-           'category'    : self.category,
+           'cat_id'      : self.category.id,
        }
 
 
