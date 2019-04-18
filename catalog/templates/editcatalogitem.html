@@ -1,0 +1,26 @@
+<html>
+<body>
+<h1>Edit Catalog Item</h1>
+
+<form action="{{url_for('editCatalogItem', category=category, item_name=name, new_name=new_name, description=new_description)}}" method = 'POST'>
+
+<p>New Name:</p>
+
+<input type='text' size='30' name='new_name' placeholder='{{name}}'>
+
+<p>New Description:</p>
+
+<input type='text' size='50' maxlength='500' name='new_description' placeholder='{{description}}'>
+
+</br>
+</br>
+<input type='submit' value='Update item'>
+
+</form>
+
+<form action="{{url_for('categoryItem', category=category, item_name=name)}}">
+<input type='submit' value='Cancel'>
+</form>
+
+</body>
+</html>

@@ -62,7 +62,7 @@ def categoryItem(category, item_name):
 
 
 @app.route('/catalog/<category>/new/', methods=['GET', 'POST'])
-def newCatalogItem(category, item_name=None, description=None):
+def newCatalogItem(category):
     '''
     Add a new catalog item.
     '''
@@ -80,13 +80,27 @@ def newCatalogItem(category, item_name=None, description=None):
         return render_template('newcatalogitem.html', category=category)
 
 
-@app.route('/catalog/<category>/<item_name>/edit/')
+@app.route('/catalog/<category>/<item_name>/edit/', methods=['GET', 'POST'])
 def editCatalogItem(category, item_name):
     '''
     Edit a catalog item.
     '''
     session = getSession()
-    return "Page to edit a catalog item."
+    item = session.query(CatalogItem).filter_by(name=item_name).one()
+    if request.method == 'POST':
+        new_name = request.form['new_name']
+        new_desc = request.form['new_description']
+        if new_name:
+            item.name = new_name
+        if new_desc:
+            item.description = new_desc
+        session.add(item)
+        session.commit()
+        return redirect(url_for('categoryItem', category=category, 
+            item_name=item.name))
+    else:
+        return render_template('editcatalogitem.html', category=category, 
+            name=item_name, description=item.description)
 
 
 @app.route('/catalog/<category>/<item_name>/delete/', methods=['GET', 'POST'])
