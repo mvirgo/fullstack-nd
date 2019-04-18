@@ -1,0 +1,26 @@
+<html>
+<body>
+
+<h1>Catalog</h1>
+
+{% for cat in categories %}
+
+<div>
+
+<a href='{{url_for('catalogCategory', category = cat.name)}}'>{{cat.name}}</a>
+
+</div>
+
+{% endfor %}
+
+<p><b>Newest Ten Items:</b></p>
+{% for i in items %}
+
+<div>
+{{i.name}}
+</div>
+
+{% endfor %}
+
+</body>
+</html>

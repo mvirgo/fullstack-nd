@@ -1,0 +1,20 @@
+<html>
+<body>
+<h1>New Catalog Item</h1>
+
+<form action="{{url_for('newCatalogItem', category=category, item_name=name, description=description)}}" method = 'POST'>
+
+<p>Name:</p>
+
+<input type='text' size='30' name='name'>
+
+<p>Description:</p>
+
+<input type='text' size='50' maxlength='500' name='description'>
+
+<input type='submit' value='Create'>
+
+</form>
+
+</body>
+</html>
