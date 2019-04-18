@@ -89,13 +89,20 @@ def editCatalogItem(category, item_name):
     return "Page to edit a catalog item."
 
 
-@app.route('/catalog/<category>/<item_name>/delete/')
+@app.route('/catalog/<category>/<item_name>/delete/', methods=['GET', 'POST'])
 def deleteCatalogItem(category, item_name):
     '''
     Delete a catalog item.
     '''
     session = getSession()
-    return "Page to delete a catalog item."
+    item = session.query(CatalogItem).filter_by(name=item_name).one()
+    if request.method == 'POST':
+        session.delete(item)
+        session.commit()
+        return redirect(url_for('catalogCategory', category=category))
+    else:
+        return render_template('deletecatalogitem.html', category=category, 
+            item=item_name)
 
 
 '''

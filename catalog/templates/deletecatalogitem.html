@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1>Confirm deletion?</h1>
+
+<form action="{{url_for('deleteCatalogItem', category=category, 
+	item_name=item)}}" method = 'POST'>
+
+<p>Click the below to delete {{item}} from {{category}}.</p>
+
+<input type='submit' value='Confirm deletion'>
+
+</form>
+
+</body>
+</html>
