@@ -1,13 +1,17 @@
-body {
-    font-family: sans-serif;
-    background-color: #333333
+header {
+    color: #ffffff;
+    background-color: #003366;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-    color: #ffffff;
+body {
+    font-family: sans-serif;
+    background-color: #808080
+}
+
+h1 {
+  display: inline-block;
 }
 
 h1,
@@ -16,35 +20,32 @@ h2 {
     margin: 0;
 }
 
-h1 {
-    border-bottom: 2px solid #eee;
-}
-
 h2 {
+    margin-left: 6px;
     font-size: 1.2em;
+    color: #ffffff;
 }
 
-p,
-dd,
-dt {
-    color: #cccccc;
+p {
+    color: #003366;
 }
 
 a {
     text-decoration: none;
-    color: #ffffcc;
-    font-size: .75em;
+    color: #EE7600;
 }
 
-.pane {
-    position: absolute;
-    left: 25%;
-    border: 2px solid;
-    border-radius: 25px;
-    padding: 5px;
-    margin: 5px;
-    border-color: #999999;
-    background-color: #333333
+form {
+  margin-top: 10px;
+  margin-right: 10px;
+  float: right;
+}
+
+button {
+  background-color: #ffa500;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
 .header {
@@ -52,22 +53,42 @@ a {
     text-align: center;
 }
 
-.name {
-    width: 50%;
-    display: inline-block;
-    float: left;
-}
-
-.description {}
-
-.price {
-    text-align: right;
-    width: 50%;
-    float: right;
-}
-
-.editdeletepane {}
-
 .flash {
     background: #cee5f5;
+}
+
+/* The sidebar menu */
+.sidenav {
+  float: left;
+  width: 160px; /* Set the width of the sidebar */
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 10px;
+  border-radius: 10px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+#mainbox {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding:15px;
+}
+
+/* Style page content */
+main {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 5px 20px;
 }
