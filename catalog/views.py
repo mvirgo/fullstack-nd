@@ -23,6 +23,13 @@ def getSession():
     return DBSession()
 
 
+def getAllCategories(session):
+    '''
+    Show all categories in the Catalog.
+    '''
+    return session.query(Category).all()
+
+
 '''
 HTTP request functions.
 '''
@@ -33,7 +40,7 @@ def fullCatalog():
     Show the all catalog categories, and newest 10 items added.
     '''
     session = getSession()
-    categories = session.query(Category).all()
+    categories = getAllCategories(session)
     last_ten_items = session.query(CatalogItem) \
         .order_by(CatalogItem.id.desc()).limit(10).all()
     return render_template('catalog.html', categories=categories, 
@@ -48,7 +55,9 @@ def catalogCategory(category):
     session = getSession()
     cat = session.query(Category).filter_by(name=category).one()
     items = session.query(CatalogItem).filter_by(category_id=cat.id)
-    return render_template('category.html', category=cat, items=items)
+    categories = getAllCategories(session)
+    return render_template('category.html', category=cat, items=items,
+        categories=categories)
 
 
 @app.route('/catalog/<category>/<item_name>/')
@@ -58,7 +67,9 @@ def categoryItem(category, item_name):
     '''
     session = getSession()
     item = session.query(CatalogItem).filter_by(name=item_name).one()
-    return render_template('catalogitem.html', category=category, item=item)
+    categories = getAllCategories(session)
+    return render_template('catalogitem.html', category=category, item=item,
+        categories=categories)
 
 
 @app.route('/catalog/<category>/new/', methods=['GET', 'POST'])
