@@ -50,6 +50,8 @@ button {
 
 /* The sidebar menu */
 .sidenav {
+  display: table-cell;
+  height: 100%;
   float: left;
   width: 160px; /* Set the width of the sidebar */
   background-color: #111;
@@ -75,7 +77,9 @@ button {
 /* Box to hold main page content */
 #mainbox {
   background-color: #f1f1f1;
+  width: 95%;
   border-radius: 10px;
+  display: table;
   padding: 15px;
 }
 
