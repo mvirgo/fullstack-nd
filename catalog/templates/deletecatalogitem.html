@@ -2,38 +2,40 @@
 <html>
 
 <head>
-	<link rel= "stylesheet" type= "text/css" href= "{{url_for('static',filename='styles.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}">
 </head>
 
 <header>
-<h1>Catalog</h1>
 
-<form action="http://localhost:8000/" method="GET" id="login">
-<button type=submit>Login</button>
-</form>
+  <h1>Catalog</h1>
+
+  <form action="http://localhost:8000/" method="GET" id="login">
+    <button type=submit>Login</button>
+  </form>
+
 </header>
 
 <body>
 
-<div id="mainbox">
+  <div id="mainbox">
 
-<main>
+    <main>
 
-<h1>Confirm deletion?</h1>
+      <h1>Confirm deletion?</h1>
 
-<form action="{{url_for('deleteCatalogItem', category=category, 
-	item_name=item)}}" method = 'POST'>
+      <form action="{{url_for('deleteCatalogItem',category=category,item_name=item)}}" method='POST'>
+        <p>Click the below to delete {{item}} from {{category}}.</p>
+        <input type='submit' value='Confirm deletion'>
+      </form>
 
-<p>Click the below to delete {{item}} from {{category}}.</p>
+      <form action="{{url_for('categoryItem',category=category,item_name=item)}}">
+        <input type='submit' value='Cancel'>
+      </form>
 
-<input type='submit' value='Confirm deletion'>
+    </main>
 
-</form>
+  </div>
 
-<form action="{{url_for('categoryItem', category=category, item_name=item)}}">
-<input type='submit' value='Cancel'>
-</form>
-</main>
-</div>
 </body>
+
 </html>

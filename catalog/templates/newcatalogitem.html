@@ -2,48 +2,47 @@
 <html>
 
 <head>
-	<link rel= "stylesheet" type= "text/css" href= "{{url_for('static',filename='styles.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}">
 </head>
 
 <header>
-<h1>Catalog</h1>
 
-<form action="http://localhost:8000/" method="GET" id="login">
-<button type=submit>Login</button>
-</form>
+  <h1>Catalog</h1>
+
+  <form action="http://localhost:8000/" method="GET" id="login">
+    <button type=submit>Login</button>
+  </form>
+
 </header>
 
 <body>
 
-<div id="mainbox">
+  <div id="mainbox">
 
-<main>
+    <main>
 
-<h1>New Catalog Item</h1>
+      <h1>New Catalog Item</h1>
 
-<div>
+      <div>
+        <form action="{{url_for('newCatalogItem',category=category,item_name=name,description=description)}}" method='POST'>
+          <p>Name:</p>
+          <input type='text' size='30' name='name'>
 
-<form action="{{url_for('newCatalogItem', category=category, item_name=name, description=description)}}" method = 'POST'>
+          <p>Description:</p>
+          <input type='text' size='50' maxlength='500' name='description'>
+          
+          <input type='submit' value='Create'>
+        </form>
 
-<p>Name:</p>
+        <form action="{{url_for('catalogCategory',category=category)}}">
+          <input type='submit' value='Cancel'>
+        </form>
+      </div>
 
-<input type='text' size='30' name='name'>
+    </main>
 
-<p>Description:</p>
+  </div>
 
-<input type='text' size='50' maxlength='500' name='description'>
-
-<input type='submit' value='Create'>
-
-</form>
-
-<form action="{{url_for('catalogCategory', category = category)}}">
-<input type='submit' value='Cancel'>
-</form>
-
-</div>
-
-</main>
-</div>
 </body>
+
 </html>

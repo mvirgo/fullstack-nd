@@ -2,38 +2,47 @@
 <html>
 
 <head>
-	<link rel= "stylesheet" type= "text/css" href= "{{url_for('static',filename='styles.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}">
 </head>
 
 <header>
-<h1>Catalog</h1>
 
-<form action="http://localhost:8000/" method="GET" id="login">
-<button type=submit>Login</button>
-</form>
+  <h1>Catalog</h1>
+
+  <form action="http://localhost:8000/" method="GET" id="login">
+    <button type=submit>Login</button>
+  </form>
+
 </header>
 
 <body>
 
-<div id="mainbox">
-<div class="sidenav">
-<h2>Categories</h2>
-{% for cat in categories %}
-<a href="{{url_for('catalogCategory', category = cat.name)}}">{{cat.name}}</a>
-{% endfor %}
+  <div id="mainbox">
 
-</div>
+    <div class="sidenav">
 
-<main>
-<p><b>Newest Ten Items:</b></p>
-{% for i in items %}
+      <h2>Categories</h2>
 
-<div id="item_list">
-<a href="{{url_for('categoryItem', category=i.category.name, item_name=i.name)}}">{{i.name}}</a>  ({{i.category.name}})
-</div>
+      {% for cat in categories %}
+      <a href="{{url_for('catalogCategory',category=cat.name)}}">{{cat.name}}</a>
+      {% endfor %}
 
-{% endfor %}
-</main>
-</div>
+    </div>
+
+    <main>
+
+      <p><b>Newest Ten Items:</b></p>
+
+      {% for i in items %}
+      <div id="item_list">
+      <a href="{{url_for('categoryItem',category=i.category.name,item_name=i.name)}}">{{i.name}}</a>  ({{i.category.name}})
+      </div>
+      {% endfor %}
+
+    </main>
+
+  </div>
+
 </body>
+
 </html>

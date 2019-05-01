@@ -2,50 +2,56 @@
 <html>
 
 <head>
-	<link rel= "stylesheet" type= "text/css" href= "{{url_for('static',filename='styles.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}">
 </head>
 
 <header>
-<h1>Catalog</h1>
 
-<form action="http://localhost:8000/" method="GET" id="login">
-<button type=submit>Login</button>
-</form>
+  <h1>Catalog</h1>
+
+  <form action="http://localhost:8000/" method="GET" id="login">
+    <button type=submit>Login</button>
+  </form>
+
 </header>
 
 <body>
 
-<div id="mainbox">
+  <div id="mainbox">
 
-<div class="sidenav">
-<h2>Categories</h2>
-{% for cat in categories %}
-<a href="{{url_for('catalogCategory', category = cat.name)}}">{{cat.name}}</a>
-{% endfor %}
+    <div class="sidenav">
 
-</div>
+      <h2>Categories</h2>
 
-<main>
+      {% for cat in categories %}
+      <a href="{{url_for('catalogCategory',category=cat.name)}}">{{cat.name}}</a>
+      {% endfor %}
 
-<h1>{{item.name}}</h1>
+    </div>
 
-<div>
+    <main>
 
-<p>{{item.description}}</p>
+      <h1>{{item.name}}</h1>
 
-<a href='{{url_for('editCatalogItem', category = category, item_name = item.name)}}'>Edit</a>
-</br>
-<a href = '{{url_for('deleteCatalogItem', category = category, item_name = item.name)}}'>Delete</a>
+      <div>
 
-</div>
-</br>
-<a href='{{url_for('catalogCategory', category = category)}}'>Back to {{category}}</a>
-</br>
-<a href='{{url_for('fullCatalog')}}'>Back to full catalog</a>
-<div>
+        <p>{{item.description}}</p>
 
-</div>
-</main>
-</div>
+        <a href="{{url_for('editCatalogItem',category=category,item_name=item.name)}}">Edit</a>
+        </br>
+        <a href="{{url_for('deleteCatalogItem',category=category,item_name=item.name)}}">Delete</a>
+
+      </div>
+
+      </br>
+      <a href="{{url_for('catalogCategory',category=category)}}">Back to {{category}}</a>
+      </br>
+      <a href="{{url_for('fullCatalog')}}">Back to full catalog</a>
+
+    </main>
+
+  </div>
+
 </body>
+
 </html>
