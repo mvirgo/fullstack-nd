@@ -41,6 +41,21 @@ a {
   float: right;
 }
 
+#googleIn {
+  float: right;
+  display: none;
+}
+
+#googleOut {
+  float: right;
+  padding: 10px;
+  display: none;
+}
+
+#authNeeded {
+  display: none;
+}
+
 button {
   background-color: #ffa500;
   color: #ffffff;
@@ -54,7 +69,7 @@ button {
   height: 100%;
   float: left;
   width: 160px; /* Set the width of the sidebar */
-  background-color: #111;
+  background-color: #003366;
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 10px;
   border-radius: 10px;
@@ -64,14 +79,14 @@ button {
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 20px;
+  color: #add8e6;
   display: block;
 }
 
 /* Change link color when hovering over */
 .sidenav a:hover {
-  color: #f1f1f1;
+  font-weight:bold;
 }
 
 /* Box to hold main page content */

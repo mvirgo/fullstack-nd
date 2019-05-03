@@ -3,15 +3,22 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}">
+  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+  <script src="{{url_for('static',filename='main.js')}}"></script>
+  <meta name="google-signin-client_id" content="879734766856-kafl325jgpia177h89hbv7c9nn4h7mhm.apps.googleusercontent.com">
 </head>
 
 <header>
 
   <h1>Catalog</h1>
 
-  <form action="http://localhost:8000/" method="GET" id="login">
-    <button type=submit>Login</button>
-  </form>
+  <div id="googleIn">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  </div>
+
+  <div id="googleOut">
+    <a href="#" onclick="signOut();">Sign out</a>
+  </div>
 
 </header>
 
