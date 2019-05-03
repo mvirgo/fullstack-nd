@@ -1,18 +1,19 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
- 
+
 from database_setup import Category, Base, CatalogItem
+
 
 def create_session():
     engine = create_engine('sqlite:///itemcatalog.db')
     # Bind the engine to the metadata of the Base class so that the
     # declaratives can be accessed through a DBSession instance
     Base.metadata.bind = engine
-     
+
     DBSession = sessionmaker(bind=engine)
     # A DBSession() instance establishes all conversations with the database
-    # Any change made against the objects in the session won't be persisted 
-    # into the database until you call session.commit(). 
+    # Any change made against the objects in the session won't be persisted
+    # into the database until you call session.commit().
     # Can revert all of them back to the last commit with session.rollback()
     session = DBSession()
 
@@ -29,7 +30,7 @@ def add_commit(session, entry):
 
 def create_category(session, cat_name):
     # Create a new category
-    category = Category(name = cat_name)
+    category = Category(name=cat_name)
     # Add and commit the category
     add_commit(session, category)
     return category
@@ -37,8 +38,8 @@ def create_category(session, cat_name):
 
 def create_item(session, item_name, desc, cat_name):
     # Create a new item
-    catalogItem = CatalogItem(name = item_name, description = desc, 
-        category = cat_name)
+    catalogItem = CatalogItem(name=item_name, description=desc,
+                              category=cat_name)
     # Add and commit the item
     add_commit(session, catalogItem)
     return

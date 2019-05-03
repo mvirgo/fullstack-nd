@@ -1,5 +1,5 @@
 from database_setup import Base, Category, CatalogItem
-from flask import Flask, render_template, jsonify, request 
+from flask import Flask, render_template, jsonify, request
 from flask import url_for
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -29,6 +29,8 @@ def getAllCategories(session):
 '''
 HTTP request functions.
 '''
+
+
 @app.route('/')
 @app.route('/catalog/')
 def fullCatalog():
@@ -39,8 +41,8 @@ def fullCatalog():
     categories = getAllCategories(session)
     last_ten_items = session.query(CatalogItem) \
         .order_by(CatalogItem.id.desc()).limit(10).all()
-    return render_template('catalog.html', categories=categories, 
-        items=last_ten_items)
+    return render_template('catalog.html', categories=categories,
+                           items=last_ten_items)
 
 
 @app.route('/catalog/<category>/')
@@ -53,7 +55,7 @@ def catalogCategory(category):
     items = session.query(CatalogItem).filter_by(category_id=cat.id)
     categories = getAllCategories(session)
     return render_template('category.html', category=cat, items=items,
-        categories=categories)
+                           categories=categories)
 
 
 @app.route('/catalog/<category>/<item_name>/')
@@ -65,7 +67,7 @@ def categoryItem(category, item_name):
     item = session.query(CatalogItem).filter_by(name=item_name).one()
     categories = getAllCategories(session)
     return render_template('catalogitem.html', category=category, item=item,
-        categories=categories)
+                           categories=categories)
 
 
 @app.route('/catalog/<category>/new/', methods=['GET', 'POST'])
@@ -103,11 +105,11 @@ def editCatalogItem(category, item_name):
             item.description = new_desc
         session.add(item)
         session.commit()
-        return redirect(url_for('categoryItem', category=category, 
-            item_name=item.name))
+        return redirect(url_for('categoryItem', category=category,
+                                item_name=item.name))
     else:
-        return render_template('editcatalogitem.html', category=category, 
-            name=item_name, description=item.description)
+        return render_template('editcatalogitem.html', category=category,
+                               name=item_name, description=item.description)
 
 
 @app.route('/catalog/<category>/<item_name>/delete/', methods=['GET', 'POST'])
@@ -122,13 +124,15 @@ def deleteCatalogItem(category, item_name):
         session.commit()
         return redirect(url_for('catalogCategory', category=category))
     else:
-        return render_template('deletecatalogitem.html', category=category, 
-            item=item_name)
+        return render_template('deletecatalogitem.html', category=category,
+                               item=item_name)
 
 
 '''
 API request functions.
 '''
+
+
 def getCategoryInfo(category):
     '''
     Get the serialized information of a category and related items.
@@ -157,9 +161,9 @@ def showAllCatalogItems():
         categories = set([c.name for c in session.query(Category).all()])
         for c in categories:
             all_items.append(getCategoryInfo(c))
-        return jsonify(ok = True, categories = all_items)
+        return jsonify(ok=True, categories=all_items)
     except:
-        return jsonify(ok = False, error="Cannot obtain catalog.")
+        return jsonify(ok=False, error="Cannot obtain catalog.")
 
 
 @app.route('/catalog.json/<category>/')
@@ -170,9 +174,9 @@ def showCategoriedItems(category):
     '''
     try:
         category_info = getCategoryInfo(category)
-        return jsonify(ok = True, category = category_info)
+        return jsonify(ok=True, category=category_info)
     except:
-        return jsonify(ok = False, error="Category not found.")
+        return jsonify(ok=False, error="Category not found.")
 
 
 @app.route('/catalog.json/<int:category_id>/')
@@ -199,9 +203,9 @@ def showItem(category, item):
         session = getSession()
         item_info = session.query(CatalogItem).filter_by(name=item).one()
         item_info = item_info.serialize
-        return jsonify(ok = True, item = item_info)
+        return jsonify(ok=True, item=item_info)
     except:
-        return jsonify(ok = False, error="Item not found.")
+        return jsonify(ok=False, error="Item not found.")
 
 
 @app.route('/catalog.json/<category>/<int:item_id>')
@@ -214,9 +218,9 @@ def showIDItem(category, item_id):
         session = getSession()
         item_info = session.query(CatalogItem).filter_by(id=item_id).one()
         item_info = item_info.serialize
-        return jsonify(ok = True, item = item_info)
+        return jsonify(ok=True, item=item_info)
     except:
-        return jsonify(ok = False, error="Item not found.")
+        return jsonify(ok=False, error="Item not found.")
 
 
 if __name__ == '__main__':
