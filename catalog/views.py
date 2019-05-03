@@ -1,13 +1,9 @@
 from database_setup import Base, Category, CatalogItem
 from flask import Flask, render_template, jsonify, request 
-from flask import redirect, url_for, abort, g
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker
+from flask import url_for
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
-from flask_httpauth import HTTPBasicAuth
-
-auth = HTTPBasicAuth()
 
 engine = create_engine('sqlite:///itemcatalog.db')
 

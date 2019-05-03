@@ -28,22 +28,34 @@
 
     <main>
 
-      <h1>New Catalog Item</h1>
-
-      <div>
-        <form action="{{url_for('newCatalogItem',category=category,item_name=name,description=description)}}" method='POST'>
-          <p>Name:</p>
-          <input type='text' size='30' name='name'>
-
-          <p>Description:</p>
-          <input type='text' size='50' maxlength='500' name='description'>
-          
-          <input type='submit' value='Create'>
-        </form>
+      <div id="noAuth">
+        <p>You must sign in to add an item.</p>
 
         <form action="{{url_for('catalogCategory',category=category)}}">
-          <input type='submit' value='Cancel'>
+          <input type='submit' value='Return to {{category}}'>
         </form>
+      </div>
+
+      <div id="authNeeded">
+
+        <h1>New Catalog Item</h1>
+
+        <div>
+          <form action="{{url_for('newCatalogItem',category=category,item_name=name,description=description)}}" method='POST'>
+            <p>Name:</p>
+            <input type='text' size='30' name='name'>
+
+            <p>Description:</p>
+            <input type='text' size='50' maxlength='500' name='description'>
+            
+            <input type='submit' value='Create'>
+          </form>
+
+          <form action="{{url_for('catalogCategory',category=category)}}">
+            <input type='submit' value='Cancel'>
+          </form>
+        </div>
+
       </div>
 
     </main>

@@ -28,16 +28,28 @@
 
     <main>
 
-      <h1>Confirm deletion?</h1>
+      <div id="noAuth">
+        <p>You must sign in to delete an item.</p>
 
-      <form action="{{url_for('deleteCatalogItem',category=category,item_name=item)}}" method='POST'>
-        <p>Click the below to delete {{item}} from {{category}}.</p>
-        <input type='submit' value='Confirm deletion'>
-      </form>
+        <form action="{{url_for('categoryItem',category=category,item_name=item)}}">
+          <input type='submit' value='Return to {{item}}'>
+        </form>
+      </div>
 
-      <form action="{{url_for('categoryItem',category=category,item_name=item)}}">
-        <input type='submit' value='Cancel'>
-      </form>
+      <div id="authNeeded">
+
+        <h1>Confirm deletion?</h1>
+
+        <form action="{{url_for('deleteCatalogItem',category=category,item_name=item)}}" method='POST'>
+          <p>Click the below to delete {{item}} from {{category}}.</p>
+          <input type='submit' value='Confirm deletion'>
+        </form>
+
+        <form action="{{url_for('categoryItem',category=category,item_name=item)}}">
+          <input type='submit' value='Cancel'>
+        </form>
+
+      </div>
 
     </main>
 
