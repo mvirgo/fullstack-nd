@@ -145,28 +145,21 @@ def getCategoryInfo(category):
             return category_info
 
 
-@app.route('/catalog.json/', methods = ['GET', 'POST'])
-@app.route('/api/catalog/', methods = ['GET', 'POST'])
+@app.route('/catalog.json/')
+@app.route('/api/catalog/')
 def showAllCatalogItems():
     '''
     Return json of full catalog.
     '''
-    session = getSession()
-    if request.method == 'GET':
+    try:
+        session = getSession()
         all_items = []
         categories = set([c.name for c in session.query(Category).all()])
         for c in categories:
             all_items.append(getCategoryInfo(c))
-        return jsonify(categories = all_items)
-    if request.method == 'POST':
-        name = request.json.get('name')
-        category = request.json.get('category')
-        description = request.json.get('description')
-        newItem = CatalogItem(name=name, category=category, 
-            description=description)
-        session.add(newItem)
-        session.commit()
-        return jsonify(newItem.serialize)
+        return jsonify(ok = True, categories = all_items)
+    except:
+        return jsonify(ok = False, error="Cannot obtain catalog.")
 
 
 @app.route('/catalog.json/<category>/')
@@ -175,8 +168,11 @@ def showCategoriedItems(category):
     '''
     Return json of a category based on category name.
     '''
-    category_info = getCategoryInfo(category)
-    return jsonify(category = [category_info])
+    try:
+        category_info = getCategoryInfo(category)
+        return jsonify(ok = True, category = category_info)
+    except:
+        return jsonify(ok = False, error="Category not found.")
 
 
 @app.route('/catalog.json/<int:category_id>/')
@@ -185,9 +181,42 @@ def showCategoriedIDItems(category_id):
     '''
     Return json of a category based on category id.
     '''
-    session = getSession()
-    category = session.query(Category).filter_by(id=category_id).first()
-    return showCategoriedItems(category.name)
+    try:
+        session = getSession()
+        category = session.query(Category).filter_by(id=category_id).first()
+        return showCategoriedItems(category.name)
+    except:
+        return
+
+
+@app.route('/catalog.json/<category>/<item>')
+@app.route('/api/catalog/<category>/<item>')
+def showItem(category, item):
+    '''
+    Return json of an item based on its name.
+    '''
+    try:
+        session = getSession()
+        item_info = session.query(CatalogItem).filter_by(name=item).one()
+        item_info = item_info.serialize
+        return jsonify(ok = True, item = item_info)
+    except:
+        return jsonify(ok = False, error="Item not found.")
+
+
+@app.route('/catalog.json/<category>/<int:item_id>')
+@app.route('/api/catalog/<category>/<int:item_id>')
+def showIDItem(category, item_id):
+    '''
+    Return json of an item based on its id.
+    '''
+    try:
+        session = getSession()
+        item_info = session.query(CatalogItem).filter_by(id=item_id).one()
+        item_info = item_info.serialize
+        return jsonify(ok = True, item = item_info)
+    except:
+        return jsonify(ok = False, error="Item not found.")
 
 
 if __name__ == '__main__':
