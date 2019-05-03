@@ -6,6 +6,14 @@ In this project, I create a website front-end for a sports item catalog, related
 - Run `lotsofcatalogitems.py` second to add items to the database
 - Run `views.py` to be able to access the primary catalog (`localhost:8000` or `localhost:8000/catalog`) in your browser, or the related API endpoint (`localhost:8000/catalog.json` or `localhost:8000/api/catalog`).
 
+#### Adding New Items
+
+You must select a category on the main catalog website, and be signed in with Google, in order to add a new item.
+
+#### Edit/Delete Items
+
+You must have selected a specific item on the main catalog website, and be signed in with Google, in order to edit or delete an item.
+
 ### Requirements / Set-up
 Install the following:
 

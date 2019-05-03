@@ -4,6 +4,6 @@ This repository contains my code for the projects in the Udacity Full Stack Web 
 Nanodegree program.
 
 - Logs Analysis
-- Item Catalog (in progress)
+- Item Catalog
 
 Further updates are pending.
