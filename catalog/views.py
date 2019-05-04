@@ -1,6 +1,6 @@
 from database_setup import Base, Category, CatalogItem
 from flask import Flask, render_template, jsonify, request
-from flask import url_for
+from flask import url_for, redirect
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
