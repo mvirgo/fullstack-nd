@@ -31,3 +31,51 @@ You'll then run `vagrant up`, which may take awhile to install everything else n
 Once it has loaded, run `vagrant ssh` to enter the VM.
 
 Once in the VM, `cd /vagrant` to enter the shared directory with your own computer.
+
+## Example screenshots
+
+Below are some example screenshots from the item catalog.
+
+**Catalog Front Page**
+
+![Catalog](screenshots/catalog.png)
+
+**Category Page, no authentication**
+
+![Category, no auth](screenshots/category-noauth.png)
+
+**Category Page, with authentication**
+
+![Category, with auth](screenshots/category-auth.png)
+
+**An item page, with authentication**
+
+![Item, with auth](screenshots/item-auth.png)
+
+**An item page, no authentication**
+
+![Item, no auth](screenshots/item-noauth.png)
+
+**Edit item page, with authentication required**
+
+![Edit item, auth required](screenshots/edit-item.png)
+
+**Delete item page, with authentication required**
+
+![Delete item, auth required](screenshots/delete-item.png)
+
+**Create new item page, with authentication required**
+
+![Create item, auth required](screenshots/new-item.png)
+
+**Updated category page for new item**
+
+![Update category with new item](screenshots/updated-category.png)
+
+**Updated catalog page for new item**
+
+![Updated catalog with new item](screenshots/updated-catalog.png)
+
+**Item page for the new item**
+
+![Item page for new item](screenshots/new-item-page.png)
